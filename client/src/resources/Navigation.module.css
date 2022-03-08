@@ -1,0 +1,41 @@
+.header{
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+.navlink {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.navlink li {
+    display: block;
+    float: right;
+    padding: 14px 5px;
+}
+
+.navlink .left{
+    float: left;
+}
+
+.navlink a{
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px 16px;
+}
+.navlink a:visited{
+    color: white;
+}
+
+.navlink a:hover , a:active, a:focus{
+    background-color: black;
+}
+
+.body{
+      background: linear-gradient(150deg, rgba(96,110,242,1) 0%, rgba(54,72,238,1) 23%, rgba(71,17,191,1) 49%, rgba(121,18,166,1) 75%, rgba(188,20,132,1) 100%);
+    display: flex;
+}

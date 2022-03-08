@@ -1,0 +1,14 @@
+:root{
+    --primary-main: #0b5eec;
+    --primary-light: #b9deff;
+    --primary-dark: #203864;
+    --secondary-main:#ec9a0b;
+    --secondary-light:#fcf7e1;
+    --secondary-dark: #ea6c03;
+    --grey-70:rgb(87, 87, 87);
+    --grey-5:#e6e6e6;
+    --grey-50:#7F7F7F;
+    --grey-90:rgb(44, 44, 44);
+    --gradient: linear-gradient(150deg, rgba(96,110,242,1) 0%, rgba(54,72,238,1) 23%, rgba(71,17,191,1) 49%, rgba(121,18,166,1) 75%, rgba(188,20,132,1) 100%);;
+
+}

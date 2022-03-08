@@ -1,0 +1,56 @@
+@import 'colors.css';
+.container{
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid var(--primary-main);
+    margin: auto;
+    padding: 8px 0px;
+    text-align: center;
+    color: black;
+
+}
+.container div{
+    margin: 4px 0px;
+    padding: 0px;
+}
+.container .submitButton{
+    border-radius: 300px;
+    font-weight: 700;
+    color: white;
+    width: 70%;
+    margin: 8px;
+    border: 2px solid var(--primary-main);
+    background: var(--gradient);
+}
+.heading{
+    align-self: left;
+    text-align: start;
+}
+.smalltext{
+    color: var(--grey-90);
+}
+.headertext{
+    font-family: 'Georgia', 'Roboto', sans-serif;
+    text-transform: uppercase;
+    color: var(--primary-main);
+}
+.smalltext a, a:visited{
+    text-decoration: none;
+    color: var(--primary-main);
+}
+.smalltext a:active, a:focus{
+    background-color: white;
+}
+.nameRow {
+    width: 100%;
+}
+.row{
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+.submitButton div span{
+    color: white;
+    width: 20px;    
+    height: 20px;    
+}

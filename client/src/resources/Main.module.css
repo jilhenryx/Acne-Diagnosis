@@ -1,0 +1,45 @@
+@import 'colors.css';
+.modal{
+    padding: 0px 16px;
+}
+.modal-loading{
+    padding:0px 16px;
+    width: auto;
+    margin: 40% 0%;
+}
+.maintext{
+    font-size: large;
+    font-weight: bolder;
+}
+.heading{
+    margin: 15px;
+}
+.file-upload-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    height: 276px;
+    padding: 5px 10px;
+    background: white;
+}
+/* .inner-file-upload-container{
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--grey-50);
+    border-radius: 10px;
+    height: 93%;
+    width: 95%;
+    
+} */
+.file-upload-caption{
+    color: var(--grey-70);
+    font-weight: bolder;
+    font-family: 'Calibri', 'Trebuchet MS', sans-serif;
+    top: 0;
+}
+.footer{
+    margin: 8px;
+    color: yellow;
+}

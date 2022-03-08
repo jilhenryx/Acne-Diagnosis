@@ -1,0 +1,40 @@
+@import 'colors.css';
+.content{
+    margin: 0% 0%;
+    padding: 0px;
+    height: 70vh;
+    min-width: 100;
+    text-align: center;
+    display: flex;
+}
+.col-left{
+    float:left;
+    margin: 20% 0%;
+    width: 48%;
+
+}
+.col-right{
+    float:right;
+    width: 60%;
+    text-align: center;
+    background-color: var(--primary-dark);
+
+}
+.col-right-content{
+    margin: 17% 0%;
+}
+.maintext{
+    font-weight: 600;
+    font-size:5ch;
+}
+.subtext{
+    font-weight: 200;
+    font-size:2ch;
+}
+.col-right a, a:visited{
+    color: var(--secondary-main);
+    background: none;
+}
+.col-right a:active{
+    color: var(--secondary-light);
+}

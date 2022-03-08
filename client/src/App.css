@@ -1,0 +1,13 @@
+
+.App {
+  /* background: rgb(47, 82, 143); */
+  /* background: linear-gradient(150deg, rgba(96,110,242,1) 0%, rgba(54,72,238,1) 23%, rgba(71,17,191,1) 49%, rgba(121,18,166,1) 75%, rgba(188,20,132,1) 100%); */
+  min-height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);*/
+  color: white;
+}
