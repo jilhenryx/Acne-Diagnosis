@@ -7,11 +7,13 @@ import Layout from './Layout';
 import { Container } from '../resources/styledComponents';
 import Constants from '../utility/Constants';
 import { makeRequest } from '../utility/ServerUtil'
+import axios from 'axios';
 function Main() {
     const navigate = useNavigate();
     const location = useLocation();
     const [loading, setLoading] = useState(false);
     const [statusMsg, setStatusMsg] = useState('Uploading File');
+    const [selectedFiles, setSelectedFiles] = useState();
     let userName = "";
     //const [files, setFiles] = useState([]);
     //Check if user has logged in else redirect to login
@@ -29,10 +31,9 @@ function Main() {
             accept: ["image/png", "image/jpeg"],
             onDrop: (acceptedFiles, fileRejections) => {
                 if (acceptedFiles) {
-                    acceptedFiles.map(file =>
-                        Object.assign(file, { preview: URL.createObjectURL(file) })
-                    )
-                    console.log("Acccepted Files: ", acceptedFiles);
+                    // acceptedFiles.map(file =>
+                    //     Object.assign(file, { preview: URL.createObjectURL(file) })
+                    // )
                     uploadFiles(acceptedFiles);
                 }
                 else if (fileRejections) {
@@ -41,6 +42,15 @@ function Main() {
             }
         })
 
+    // useEffect(files => {
+    //     if (!files) {
+    //         alert(Constants.DEFAULT_ERROR_MESSAGE);
+    //         return;
+    //     }
+    //     uploadFiles(files);
+
+    // }, [selectedFiles]);
+
     const uploadFiles = (files) => {
         if (files.length < 1) {
             alert("Please Upload .PNG or .JPG Images");
@@ -48,20 +58,20 @@ function Main() {
         }
         console.log("Sending: ", files);
         setLoading(true);
-        const formData = new FormData();
-        formData.append("files", files);
-
-        console.log("Files to Model Server: ", files);
-        makeRequest(
-            Constants.MODEL_PREDICT_API,
-            formData,
-            Constants.SERVER_CALL_TYPE.post
-        ).then(response => {
-            console.log("Model Response: ", response);
-        }).catch(_ =>{
-            setLoading(false);
-            alert(Constants.DEFAULT_ERROR_MESSAGE);
-        });
+        const formData = new FormData()
+        formData.append('files', files);
+        axios({
+            method: "post",
+            url: Constants.MODEL_PREDICT_API,
+            data: files,
+        })
+            .then(response => {
+                console.log("Model Response: ", response);
+            })
+            .catch(_ => {
+                setLoading(false);
+                alert(Constants.DEFAULT_ERROR_MESSAGE);
+            });
 
     }
 

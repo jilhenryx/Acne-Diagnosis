@@ -1,5 +1,4 @@
-const WEB_API_HOST = "http://localhost:3001/api";
-const MODEL_API_HOST = "http://localhost:8000";
+const WEB_API_HOST = "http://localhost:4000/api";
 
 export default class Constants {
     static REG_FORM_ERRORS = {
@@ -40,7 +39,7 @@ export default class Constants {
     //API Endpoints
     static REGISTER_API = WEB_API_HOST + "/register";
     static LOGIN_API = WEB_API_HOST + "/login";
-    static MODEL_PREDICT_API = MODEL_API_HOST + "/predict";
+    static MODEL_PREDICT_API = WEB_API_HOST + "/predict";
 
     //Server Requests Status Codes
     static STATUS_CODE_SUCCESS = 200;
