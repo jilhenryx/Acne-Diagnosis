@@ -101,7 +101,7 @@ function Register() {
     }
 
     return (
-        <Container maxWidth='xs' className={styles.container}>
+        <Container maxWidth='xs' className={styles.formContainer}>
             <div className={styles.heading}>
                 <Typography variant='h5' className={styles.headertext}>Sign Up</Typography>
                 <Typography variant='subtitle1' className={styles.smalltext}>Please fill to create a new account</Typography>

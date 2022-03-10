@@ -8,6 +8,7 @@ const Constants = require('./Constants');
 
 async function getPredictions(req, res) {
     let files = req.files;
+    await Constants.sleep(3000);
     if (!files){
         res.send({ statusCode: Constants.ERROR_CODE, modelResponse: Constants.DEFAULT_ERROR_MESSAGE});
     }

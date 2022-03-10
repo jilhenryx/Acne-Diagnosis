@@ -1,5 +1,5 @@
 @import 'colors.css';
-.container{
+.formContainer{
     background-color: white;
     border-radius: 10px;
     border: 2px solid var(--primary-main);
@@ -9,11 +9,11 @@
     color: black;
 
 }
-.container div{
+.formContainer div{
     margin: 4px 0px;
     padding: 0px;
 }
-.container .submitButton{
+.formContainer .submitButton{
     border-radius: 300px;
     font-weight: 700;
     color: white;

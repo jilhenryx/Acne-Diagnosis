@@ -3,11 +3,11 @@ import numpy as np
 
 IMG_SIZE = 224
 DATA_AUG = keras.Sequential([
-        keras.layers.experimental.preprocessing.Resizing(IMG_SIZE, IMG_SIZE),
-        keras.layers.experimental.preprocessing.Rescaling(1.0/255)
-    ],
-        name="Resize_Rescale"
-    )
+    keras.layers.Rescaling(1.0/255),
+    keras.layers.Resizing(IMG_SIZE, IMG_SIZE),
+],
+    name="Resize_Rescale"
+)
 
 
 def resize_rescale(images):

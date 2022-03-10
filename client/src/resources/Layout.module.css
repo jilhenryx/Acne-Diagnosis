@@ -6,7 +6,14 @@
     max-width: 90%;
     text-align: center;
     color: white;
-    padding:5px;
     width: 100%;
-    margin: 10% 5%;
+    margin: 7em auto 0 auto;
+    display: block;
 }
+.containerDiv{
+    margin: 0 1em 0 1em!important;
+}
+
+/* @media screen {
+    
+} */

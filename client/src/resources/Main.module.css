@@ -1,10 +1,10 @@
 @import 'colors.css';
 .modal{
-    padding: 0px 16px;
+    padding: 5px 16px;
 }
 .modal-loading{
     padding:0px 16px;
-    width: auto;
+    width: 100%;
     margin: 40% 0%;
 }
 .maintext{

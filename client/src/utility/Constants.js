@@ -63,4 +63,11 @@ export default class Constants {
     //External Web Links
     static MORE_INFO_LINK = 'https://www.mayoclinic.org/diseases-conditions/acne/symptoms-causes/syc-20368047#:~:text=Acne%20is%20a%20skin%20condition,affects%20people%20of%20all%20ages.';
 
+    //Predictions
+    static PREDICTIONS = ['acne','not-acne']
+
+    static LOGIN_INFO = {
+        loggedIN: false,
+        userData: {},
+    }
 }

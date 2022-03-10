@@ -41,16 +41,17 @@ async def predict(
     images_batch = resize_rescale(images_array)
     #return {"image_batch": images_batch[0].shape}
 
-    predictions = MODEL.predict(images_batch)
+    model_predictions = MODEL.predict(images_batch)
+    predictions = np.round_(model_predictions,2)
     num_predictions = len(predictions)
-
+    #return {'preds':predictions.tolist()}
     if num_predictions < 1:
         return df.format_result(
             status='No Prediction',
-            result_type=Constants.RESULT_TYPE_INCONC
+            result_type=Constants.RESULT_TYPE_CONC
         )
 
-    pred_classes = np.array([], dtype='int64')
+    pred_classes_code = np.array([], dtype='int64')
     confidence_list_total = np.zeros_like(predictions[0])
 
     if num_predictions == 1:
@@ -61,29 +62,29 @@ async def predict(
             status='OK',
             result_type=Constants.RESULT_TYPE_CONC,
             pred_class=Constants.CLASS_NAMES[pred_class_code],
-            confidence=str(confidence_list[pred_class_code])
+            confidence= np.round(confidence_list.tolist()[pred_class_code],2)
         )
     elif num_predictions > 1:
         for prediction in predictions:
             pred_class_code, confidence_list = df.format_prediction_result(
                 prediction)
-            pred_classes = np.append(pred_classes, pred_class_code)
+            pred_classes_code = np.append(pred_classes_code, pred_class_code)
             confidence_list_total += confidence_list
 
         # Getting Number of  Most Occurring Class
-        pred_classes_mode = np.bincount(pred_classes)
-        max_num = np.max(pred_classes_mode)
-        pred_classes_mode_num = [x for x in pred_classes_mode if x == max_num]
+        pred_classes_code_mode = np.bincount(pred_classes_code)
+        max_num = np.max(pred_classes_code_mode)
+        pred_classes_code_mode_num = [x for x in pred_classes_code_mode if x == max_num]
         # Return Results
-        if len(pred_classes_mode_num) > 1:
+        if len(pred_classes_code_mode_num) > 1:
             print(confidence_list_total)
             return df.format_result(
-                status='OK',
+                status='Inconclusive',
                 result_type=Constants.RESULT_TYPE_INCONC
             )
         else:
-            index = pred_classes_mode.argmax()
-            confidence = confidence_list_total[index] / num_predictions
+            index = pred_classes_code_mode.argmax()
+            confidence = np.round(((confidence_list_total[index] / num_predictions) * 100),2)
             pred_class = Constants.CLASS_NAMES[index]
             return df.format_result(
                 status='OK',

@@ -19,5 +19,12 @@ module.exports = class Constants{
     //Status Codes
     static SUCCESS_CODE = 200;
     static ERROR_CODE = 404;
+
+    //Sleep Function to Simulate Server Load Time
+    static sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
 }
 

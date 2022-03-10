@@ -27,7 +27,7 @@ async function handleUserRegistration(req, res) {
         VALUES (?,?,?,?)`;
     const sqlGetEmail = 'SELECT * FROM users WHERE email = ?';
 
-    await sleep(2000);
+    await Constants.sleep(2000);
     db.query(
         sqlGetEmail,
         [email],
@@ -74,7 +74,7 @@ async function handleUserLogin(req, res) {
 
     const sqlQueryEmail = "SELECT first_name, last_name, email, password FROM users WHERE email = ?";
 
-    await sleep(3000);
+    await Constants.sleep(2000);
     db.query(
         sqlQueryEmail,
         [email],
@@ -121,10 +121,4 @@ async function handleUserLogin(req, res) {
         });
 }
 
-//Sleep Function to Simulate Server Load Time
-function sleep(ms) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
 module.exports = { handleUserRegistration, handleUserLogin }

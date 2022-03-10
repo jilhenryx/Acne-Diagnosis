@@ -7,9 +7,16 @@ import Navigation from './Navigation';
 function Layout(props) {
     return (
         <Navigation isHome={props.isHome} userName={props.userName}>
-            <Container maxWidth='xs' className={styles.container}>
-                {props.children}
-            </Container>
+            <div className={styles.containerDiv}>
+                <Container maxWidth='xs' className={styles.container}
+                    style={{
+                            display: 'flex'
+                        
+                    }}
+                >
+                    {props.children}
+                </Container>
+            </div>
         </Navigation>
 
     );

@@ -2,10 +2,10 @@
 .content{
     margin: 0% 0%;
     padding: 0px;
-    height: 70vh;
-    min-width: 100;
+    min-height: 100%;
     text-align: center;
     display: flex;
+    flex-direction: row;
 }
 .col-left{
     float:left;

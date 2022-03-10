@@ -2,6 +2,7 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 import constants as Constants
+import math
 """
     Formats prediction data retrieved from ViT model
 
@@ -16,7 +17,7 @@ import constants as Constants
 
 def format_prediction_result(prediction):
     pred_class_code = Constants.CLASS_NAMES_CODE[np.argmax(prediction)]
-    confidence_list = np.round(prediction, 2)
+    confidence_list = np.round_(prediction,2)
 
     return pred_class_code, confidence_list
 
@@ -35,12 +36,12 @@ def format_prediction_result(prediction):
 """
 
 
-def format_result(status, result_type, pred_class='', confidence=''):
+def format_result(status, result_type, pred_class='', confidence=0.0):
     result = Constants.RESULT_TYPE[result_type]
     return {
         'status': status,
-        'result': result,
-        'class': pred_class,
+        'resultType': result,
+        'predClass': pred_class,
         'confidence': confidence
     }
 

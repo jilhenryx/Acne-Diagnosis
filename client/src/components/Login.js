@@ -46,13 +46,9 @@ function Login() {
                     const passwordErrorMsg = response.data.loginResponse.passwordErrorMsg;
                     console.log("Login Response: ", response.data);
                     if (shouldLogin) {
-                        navigate(
-                            Constants.MAIN_PAGE,
-                            {state:{
-                                shouldLogin: shouldLogin,
-                                userInfo: response.data.loginInfo,
-                            }}
-                            );
+                        Constants.LOGIN_INFO.loggedIN = true;
+                        Constants.LOGIN_INFO.userData = response.data.loginInfo;
+                        navigate(Constants.MAIN_PAGE);
                     } else {
                         console.log("Email Error: ", emailErrorMsg, "Password Error:", passwordErrorMsg);
                         setHelperTexts({
@@ -74,7 +70,7 @@ function Login() {
     }
     //Login Module
     return (
-        <Container maxWidth='xs' className={styles.container}>
+        <Container maxWidth='xs' className={styles.formContainer}>
             <div>
                 <Typography className={styles.headertext} variant='h5'>
                     Welcome</Typography>

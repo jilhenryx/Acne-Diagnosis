@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, LinearProgress } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
-import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import styles from '../resources/Main.module.css';
 import Layout from './Layout';
 import { Container } from '../resources/styledComponents';
 import Constants from '../utility/Constants';
-import { makeRequest } from '../utility/ServerUtil'
-import axios from 'axios';
+import { makeRequest, getFormData } from '../utility/ServerUtil'
 function Main() {
     const navigate = useNavigate();
-    const location = useLocation();
     const [loading, setLoading] = useState(false);
     const [statusMsg, setStatusMsg] = useState('Uploading File');
     const [selectedFiles, setSelectedFiles] = useState();
     let userName = "";
     //const [files, setFiles] = useState([]);
     //Check if user has logged in else redirect to login
-    if (location.state && location.state.shouldLogin) {
-        //console.log("Loc State: ", location.state);
-        userName = location.state.userInfo.first_name + " " + location.state.userInfo.last_name;
+    if (Constants.LOGIN_INFO.loggedIN) {
+        console.log("User Logged In");
+        userName = Constants.LOGIN_INFO.userData.first_name + " " + Constants.LOGIN_INFO.userData.last_name;
     } else {
         console.log("User is not authenticated");
         return <Navigate to={Constants.LOGIN_PAGE} />
+    }
+
+    const sleep = (delay) => {
+        return new Promise(res => setTimeout(res, delay));
     }
 
     //Initializing DropZone
@@ -34,45 +36,64 @@ function Main() {
                     // acceptedFiles.map(file =>
                     //     Object.assign(file, { preview: URL.createObjectURL(file) })
                     // )
-                    uploadFiles(acceptedFiles);
+                    const filesObject = Object.assign({}, acceptedFiles);
+                    console.log("Object Files:", filesObject);
+                    setSelectedFiles(filesObject);
                 }
                 else if (fileRejections) {
                     alert("Uploaded Invalid Files");
                 }
             }
         })
-
-    // useEffect(files => {
-    //     if (!files) {
-    //         alert(Constants.DEFAULT_ERROR_MESSAGE);
-    //         return;
-    //     }
-    //     uploadFiles(files);
-
-    // }, [selectedFiles]);
-
-    const uploadFiles = (files) => {
-        if (files.length < 1) {
-            alert("Please Upload .PNG or .JPG Images");
+    //Use Effect to Listen for Upload of Files
+    useEffect(() => {
+        if (!selectedFiles || selectedFiles.length < 1) {
+            console.log("UseEffect(): No files")
+            //alert("Please Upload .PNG or .JPG Images");
             return;
         }
-        console.log("Sending: ", files);
+        console.log("UseEffect(): Selected Files Changed");
+        uploadSelectedFiles(selectedFiles);
+    }, [selectedFiles]);
+
+    const uploadSelectedFiles = (files) => {
+        // axios({
+        //     method: "post",
+        //     url: Constants.MODEL_PREDICT_API,
+        //     data: files,
+        // })
         setLoading(true);
-        const formData = new FormData()
-        formData.append('files', files);
-        axios({
-            method: "post",
-            url: Constants.MODEL_PREDICT_API,
-            data: files,
-        })
-            .then(response => {
-                console.log("Model Response: ", response);
+        const formData = getFormData(files);
+        console.log("Uploading Files");
+        makeRequest(Constants.MODEL_PREDICT_API, formData, Constants.SERVER_CALL_TYPE.post)
+            .then(async response => {
+                setStatusMsg("Predicting");
+                await sleep(3000);
+                const resData = response.data;
+                console.log("Model Response: ", resData);
+                if (resData.statusCode === Constants.STATUS_CODE_SUCCESS) {
+                    navigate(Constants.RESULT_PAGE,
+                        {
+                            state: {
+                                resultData: resData.modelResponse,
+                                userName: userName,
+                            }
+                        })
+                }
+                else {
+                    setLoading(false);
+                    if (resData.statusCode === Constants.STATUS_CODE_ERROR) {
+                        alert(resData.modelResponse);
+                    }
+                    else {
+                        alert(Constants.DEFAULT_ERROR_MESSAGE);
+                    }
+                }
             })
             .catch(_ => {
                 setLoading(false);
                 alert(Constants.DEFAULT_ERROR_MESSAGE);
             });
-
     }
 
     return (

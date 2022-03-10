@@ -13,6 +13,16 @@ export function makeRequest(server_url = '', data = {}, serverCallType) {
     }
 }
 
+export const getFormData = (files) => {
+    console.log("Sending: ", files);
+    const formData = new FormData()
+    //formData.append('files', files);
+    for(let index in files){
+        formData.append('files', files[index]);
+    }
+    return formData;
+}
+
 function getRequest(url, data) {
     //TODO: Implement Get
 }
