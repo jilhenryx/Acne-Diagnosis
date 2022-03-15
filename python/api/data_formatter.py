@@ -1,8 +1,10 @@
 import numpy as np
+import tensorflow as tf
 from io import BytesIO
 from PIL import Image
 import constants as Constants
-import math
+
+IMG_SIZE = 224
 """
     Formats prediction data retrieved from ViT model
 
@@ -17,7 +19,7 @@ import math
 
 def format_prediction_result(prediction):
     pred_class_code = Constants.CLASS_NAMES_CODE[np.argmax(prediction)]
-    confidence_list = np.round_(prediction,2)
+    confidence_list = np.round_(prediction, 2)
 
     return pred_class_code, confidence_list
 
@@ -47,11 +49,17 @@ def format_result(status, result_type, pred_class='', confidence=0.0):
 
 
 def read_files_as_image_array(files):
-    images = []
+    images_array = []
     if(len(files) < 1):
         return
     for file in files:
-        image = np.array(Image.open(BytesIO(file)))
-        #image_batch = np.expand_dims(image, 0)
-        images.append(image)
-    return np.array(images)
+        image = Image.open(BytesIO(file))
+        image = image.resize((IMG_SIZE,IMG_SIZE))
+        image_array = tf.keras.preprocessing.image.img_to_array(image)
+        image_array = tf.expand_dims(image_array, 0).numpy()
+#       image_array = resize_rescale(image_array)
+#       print(f"Image_Array: {image_array.shape}")
+        images_array.append(image_array[0])
+
+    return np.array(images_array,dtype=np.float)
+    

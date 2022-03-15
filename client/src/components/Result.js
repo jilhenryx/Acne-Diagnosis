@@ -7,7 +7,7 @@ import Constants from '../utility/Constants';
 function Result() {
     const location = useLocation();
     let predConfidence = "0%";
-    let predClass = "-";
+    let predClass = "null";
     let userName = "";
 
     if (location.state && location.state.resultData && Constants.LOGIN_INFO.loggedIN) {
@@ -37,17 +37,17 @@ function Result() {
                 <div className={styles['col-right']}>
                     <div className={styles['col-right-content']}>
                         <div className={styles.subtext}>
-                            The system predicted<br />
-                            <p className={styles.maintext}>{predConfidence}%</p><br />
-                            chance you have {predClass}.
+                            <p>The system predicted</p>
+                            <p className={styles.maintext}>{predConfidence}%</p>
+                            <p>{Constants.PREDICTION_MESSAGE[predClass]}</p>
                         </div>
-                        <br /><br />
-                        {predClass === Constants.PREDICTIONS[0] ?
+                        <div>{predClass === Constants.PREDICTIONS[0] ?
                             <div>Please click <a href={Constants.MORE_INFO_LINK}><b>here</b></a> for
                                 more info on acne
                                 and its treatments.
                             </div>
                             : <div></div>}
+                        </div>
                     </div>
                 </div>
             </div>

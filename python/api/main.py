@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import tensorflow as tf
 import uvicorn
 import numpy as np
-from data_preprocessing import resize_rescale
 import constants as Constants
 import data_formatter as df
 
@@ -35,14 +34,16 @@ async def ping():
 async def predict(
         files: List[UploadFile]
 ):
-    #return {"File Names": [file.filename for file in files]}
+    print (f"Post/Predict Called")
     files = [await file.read() for file in files]
+    print("Coverting To Images Array")
     images_array = df.read_files_as_image_array(files)
-    images_batch = resize_rescale(images_array)
-    #return {"image_batch": images_batch[0].shape}
+    print("Files Converted To Images Array")
+    # return {"Image_batch": images_array.shape}
 
-    model_predictions = MODEL.predict(images_batch)
+    model_predictions = MODEL.predict(images_array)
     predictions = np.round_(model_predictions,2)
+    print(f"Predictions: {predictions}")
     num_predictions = len(predictions)
     #return {'preds':predictions.tolist()}
     if num_predictions < 1:
@@ -62,7 +63,7 @@ async def predict(
             status='OK',
             result_type=Constants.RESULT_TYPE_CONC,
             pred_class=Constants.CLASS_NAMES[pred_class_code],
-            confidence= np.round(confidence_list.tolist()[pred_class_code],2)
+            confidence= np.round((confidence_list.tolist()[pred_class_code]) * 100,2)
         )
     elif num_predictions > 1:
         for prediction in predictions:

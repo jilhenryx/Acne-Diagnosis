@@ -65,6 +65,11 @@ export default class Constants {
 
     //Predictions
     static PREDICTIONS = ['acne','not-acne']
+    static PREDICTION_MESSAGE = {
+        'acne': 'chance you have acne',
+        'not-acne': 'chance you do not have acne',
+        'null':'',
+    }
 
     static LOGIN_INFO = {
         loggedIN: false,
